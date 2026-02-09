@@ -5,7 +5,7 @@ A full-stack rental home application built with Node.js/Express (Backend) and Fl
 ## Tech Stack
 - **Backend**: Node.js, Express.js, MySQL, JWT, Bcrypt
 - **Frontend**: Flutter, Provider (State Management), Google Fonts, LineIcons
-
+# hello my name im from im very short
 ## Project Structure
 - `/backend`: Node.js Express API
     - `/config`: Database and schema configuration
