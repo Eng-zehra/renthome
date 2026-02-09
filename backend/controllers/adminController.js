@@ -56,7 +56,7 @@ const getAllBookings = async (req, res) => {
         `;
         const [bookings] = await db.execute(query);
 
-        console.log(`✅ Found ${bookings.length} bookings`);
+        console.log(`Found ${bookings.length} bookings`);
 
         // Parse property images if they are strings
         bookings.forEach(b => {
@@ -78,11 +78,11 @@ const getAllBookings = async (req, res) => {
                 console.log(`   Booking ${b.id}: status="${status}" (type: ${typeof status})`);
             }
         });
-        console.log('📊 Status distribution:', statusCounts);
+        console.log(' Status distribution:', statusCounts);
 
         res.json(bookings);
     } catch (error) {
-        console.error('❌ Admin Bookings Error:', error);
+        console.error(' Admin Bookings Error:', error);
         res.status(500).json({ message: 'Failed to fetch bookings' });
     }
 };
@@ -91,34 +91,34 @@ const updateBookingStatus = async (req, res) => {
     const { id } = req.params;
     const { status } = req.body;
 
-    console.log(`🔄 Admin updating booking ${id} to status: ${status}`);
+    console.log(` Admin updating booking ${id} to status: ${status}`);
 
     if (!['pending', 'confirmed', 'cancelled'].includes(status)) {
-        console.log(`❌ Invalid status: ${status}`);
+        console.log(` Invalid status: ${status}`);
         return res.status(400).json({ message: 'Invalid status' });
     }
 
     try {
-        // First check if booking exists
+        // waa midka u horeyee ee chkimeya bokinka
         const [existing] = await db.execute("SELECT id, status FROM bookings WHERE id = ?", [id]);
         if (existing.length === 0) {
-            console.log(`❌ Booking ${id} not found`);
+            console.log(` Booking ${id} not found`);
             return res.status(404).json({ message: 'Booking not found' });
         }
 
-        console.log(`📝 Current status: ${existing[0].status} -> New status: ${status}`);
+        console.log(` Current status: ${existing[0].status} -> New status: ${status}`);
 
         const [result] = await db.execute("UPDATE bookings SET status = ? WHERE id = ?", [status, id]);
 
         if (result.affectedRows > 0) {
-            console.log(`✅ Booking ${id} successfully updated to ${status}`);
+            console.log(` Booking ${id} successfully updated to ${status}`);
             res.json({ message: 'Booking status updated successfully', booking_id: id, new_status: status });
         } else {
-            console.log(`⚠️ No rows affected for booking ${id}`);
+            console.log(` No rows affected for booking ${id}`);
             res.status(500).json({ message: 'Failed to update booking' });
         }
     } catch (error) {
-        console.error('❌ Update Booking Error:', error);
+        console.error(' Update Booking Error:', error);
         res.status(500).json({ message: 'Failed to update booking' });
     }
 };
