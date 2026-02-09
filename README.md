@@ -22,7 +22,7 @@ A full-stack rental home application built with Node.js/Express (Backend) and Fl
 
 ## Getting Started
 
-### Backend Setup
+### Backend Setup session
 1. Navigate to `/backend`
 2. Run `npm install`
 3. Create a MySQL database named `renthome_db`
